@@ -8,13 +8,13 @@
 ### Установка
 >note: для текущей версии GenDiff требуется Node.js версия 18.x или выше
 * Склонируйте данный репозиторий
+```
+git clone https://github.com/PikylNadin/qa-auto-engineer-javascript-project-87.git
+cd qa-auto-engineer-javascript-project-87
+```
 * для установки необходимых зависимостей:
 ```
-make install
-```
-* для установки GenDiff глобально:
-```
-npm link
+npm ci
 ```
 
 ### Как использовать
@@ -29,10 +29,11 @@ Options:
 
 ### GenDiff recordings on asciinema.org
 
-### compare 2 JSON (format: stylish):
+### Сравнение 2 JSON (формат: stylish):
+[![asciicast](https://asciinema.org/a/SIy70vu2cU7L9culEdMBNtVzJ.svg)](https://asciinema.org/a/SIy70vu2cU7L9culEdMBNtVzJ)
 
+### Сравнение 2 YAML (формат: plain):
+[![asciicast](https://asciinema.org/a/T4JrOWcISMY2Dz8wW7OaJr5kz.svg)](https://asciinema.org/a/T4JrOWcISMY2Dz8wW7OaJr5kz)
 
-### compare 2 YAML (format: plain):
-
-
-### compare JSON and YAML (format: json):
+### Сравнение JSON and YAML (формат: json):
+[![asciicast](https://asciinema.org/a/oyq8JMtAqRrv6gqP0L6r0BBW4.svg)](https://asciinema.org/a/oyq8JMtAqRrv6gqP0L6r0BBW4)
