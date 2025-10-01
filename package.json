@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/PikylNadin/qa-auto-engineer-javascript-project-87/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/PikylNadin/qa-auto-engineer-javascript-project-87/actions)",
+  "description": "GenDiff - это инструмент интерфейса командной строки, который сравнивает два конфигурационных файла и показывает разницу в одном из следующих выходных форматов: stylish, plain, json",
   "main": "src/gendiff.js",
   "bin": {
     "gendiff": "bin/gendiff.js"

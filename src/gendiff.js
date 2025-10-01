@@ -5,16 +5,20 @@ import { parseData } from './parsers.js';
 import formatData from './formatters/index.js';
 import compareObjects from './compare-objects.js';
 
-const buildFullPath = (somePath) => path.resolve(process.cwd(), somePath);
+const buildFullPath = (filepath) => path.resolve(process.cwd(), filepath);
 
 const extractFormat = (filepath) => path.extname(filepath).slice(1);
 
-const getData = (filePath) => parseData(fs.readFileSync(filePath, 'utf-8'), extractFormat(filePath));
+const getData = (filepath) => {
+  const fullPath = buildFullPath(filepath);
+  const fileContent = fs.readFileSync(fullPath, 'utf-8');
+  return parseData(fileContent, extractFormat(filepath));
+};
 
-const genDiff = (pathToFile1, pathToFile2, outputFormat = 'stylish') => {
-  const obj1 = getData(buildFullPath(pathToFile1));
-  const obj2 = getData(buildFullPath(pathToFile2));
-  const differences = compareObjects(obj1, obj2);
+const genDiff = (filepath1, filepath2, outputFormat = 'stylish') => {
+  const data1 = getData(filepath1);
+  const data2 = getData(filepath2);
+  const differences = compareObjects(data1, data2);
 
   return formatData(differences, outputFormat);
 };

@@ -10,29 +10,30 @@ const __dirname = path.dirname(__filename);
 const getFixturePath = (fileName) =>
   path.join(__dirname, '..', '__fixtures__', fileName);
 
-const readTestFile = (fileName) =>
+const readFixtureFile = (fileName) =>
   fs.readFileSync(getFixturePath(fileName), 'utf-8');
 
-describe('genDiff: different output formats', () => {
-  test.each([
-    {
-      format: 'stylish',
-      expected: readTestFile('expectedStylishOutput.txt'),
-    },
-    {
-      format: 'plain',
-      expected: readTestFile('expectedPlainOutput.txt'),
-    },
-    {
-      format: 'json',
-      expected: readTestFile('expectedJsonOutput.txt'),
-    },
-  ])('json and yaml, $format output', ({ format, expected }) => {
-    expect(genDiff(getFixturePath('file1.json'), getFixturePath('file2.yml'), format)).toBe(expected);
+const expectedOutputs = {
+  stylish: readFixtureFile('expectedStylishOutput.txt'),
+  plain: readFixtureFile('expectedPlainOutput.txt'),
+  json: readFixtureFile('expectedJsonOutput.txt'),
+};
+
+describe('genDiff: output formats', () => {
+  const formats = ['yml', 'yaml', 'json'];
+  const outputFormats = Object.keys(expectedOutputs);
+
+  test.each(formats)('format %s', (format) => {
+    const filepath1 = getFixturePath(`file1.${format}`);
+    const filepath2 = getFixturePath(`file2.${format}`);
+
+    outputFormats.forEach(output => {
+      expect(genDiff(filepath1, filepath2, output)).toBe(expectedOutputs[output]);
+    });
   });
 });
 
-describe('genDiff: exceptions are thrown, default outputFormat', () => {
+describe('genDiff: exceptions and default output format', () => {
   test('with unsupported data type', () => {
     expect(() => {
       genDiff(getFixturePath('expectedStylishOutput.txt'), getFixturePath('file2.json'));
@@ -48,23 +49,13 @@ describe('genDiff: exceptions are thrown, default outputFormat', () => {
 
 describe('genDiff: different file paths (default output format)', () => {
   test.each([
-    {
-      pathType: 'relative',
-      pathToFile1: getFixturePath('file1.json'),
-      pathToFile2: getFixturePath('file2.json'),
-    },
-    {
-      pathType: 'absolute',
-      pathToFile1: getFixturePath('file1.json'),
-      pathToFile2: getFixturePath('file2.json'),
-    },
+    { pathType: 'relative', pathToFile1: getFixturePath('file1.json'), pathToFile2: getFixturePath('file2.json') },
+    { pathType: 'absolute', pathToFile1: getFixturePath('file1.json'), pathToFile2: getFixturePath('file2.json') },
   ])('with $pathType path', ({ pathToFile1, pathToFile2 }) => {
-    const expected = readTestFile('expectedStylishOutput.txt');
-    expect(genDiff(pathToFile1, pathToFile2)).toBe(expected);
+    expect(genDiff(pathToFile1, pathToFile2)).toBe(expectedOutputs.stylish);
   });
 });
 
 test('genDiff: with .yaml and .yml YAML file extensions', () => {
-  const expected = readTestFile('expectedStylishOutput.txt');
-  expect(genDiff(getFixturePath('file1.yaml'), getFixturePath('file2.yml'))).toBe(expected);
+  expect(genDiff(getFixturePath('file1.yaml'), getFixturePath('file2.yml'))).toBe(expectedOutputs.stylish);
 });
