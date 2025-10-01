@@ -17,5 +17,4 @@ const parseData = (data, dataType) => {
   }
 }
 
-
-export { parseData }
+export default parseData
