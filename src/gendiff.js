@@ -5,11 +5,11 @@ import parseData from './parsers.js'
 import formatData from './formatters/index.js'
 import compareObjects from './compare-objects.js'
 
-const buildFullPath = (filepath) => path.resolve(process.cwd(), filepath)
+const buildFullPath = filepath => path.resolve(process.cwd(), filepath)
 
-const extractFormat = (filepath) => path.extname(filepath).slice(1)
+const extractFormat = filepath => path.extname(filepath).slice(1)
 
-const getData = (filepath) => {
+const getData = filepath => {
   const fullPath = buildFullPath(filepath)
   const fileContent = fs.readFileSync(fullPath, 'utf-8')
   return parseData(fileContent, extractFormat(filepath))
