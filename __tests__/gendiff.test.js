@@ -1,6 +1,6 @@
 import '@jest/globals'
 import genDiff from '../src/gendiff.js'
-import fileURLToPath from 'url'
+import { fileURLToPath } from 'url'
 import path from 'path'
 import fs from 'fs'
 
