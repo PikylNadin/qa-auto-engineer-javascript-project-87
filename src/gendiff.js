@@ -9,7 +9,7 @@ const buildFullPath = filepath => path.resolve(process.cwd(), filepath)
 
 const extractFormat = filepath => path.extname(filepath).slice(1)
 
-const getData = filepath => {
+const getData = (filepath) => {
   const fullPath = buildFullPath(filepath)
   const fileContent = fs.readFileSync(fullPath, 'utf-8')
   return parseData(fileContent, extractFormat(filepath))
