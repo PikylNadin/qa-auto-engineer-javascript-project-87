@@ -18,9 +18,9 @@ const toStylishMap = {
 
 const formatToStylish = (coll) => {
   if (!Array.isArray(coll)) {
-    return undefined;
+    return undefined
   }
-  const formattedColl = coll.flatMap((item) => toStylishMap[item.type](item))
+  const formattedColl = coll.flatMap(item => toStylishMap[item.type](item))
 
   return ['{', ...formattedColl, '}'].join('\n')
 }

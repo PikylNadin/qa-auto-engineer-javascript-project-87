@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const isEmptyObj = (someObject) => {
   if (typeof someObject === 'object') {
-    return Object.keys(someObject).length === 0;
+    return Object.keys(someObject).length === 0
   }
   return false
 }

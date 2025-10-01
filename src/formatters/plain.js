@@ -17,7 +17,7 @@ const formatToPlain = (coll) => {
   if (!Array.isArray(coll)) {
     return undefined
   }
-  const formattedColl = coll.flatMap((item) => toPlainMap[item.type](item))
+  const formattedColl = coll.flatMap(item => toPlainMap[item.type](item))
   return formattedColl.join('\n')
 }
 

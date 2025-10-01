@@ -7,10 +7,10 @@ import fs from 'fs'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const getFixturePath = (fileName) =>
+const getFixturePath = fileName =>
   path.join(__dirname, '..', '__fixtures__', fileName)
 
-const readFixtureFile = (fileName) =>
+const readFixtureFile = fileName =>
   fs.readFileSync(getFixturePath(fileName), 'utf-8')
 
 const expectedOutputs = {
@@ -27,7 +27,7 @@ describe('genDiff: output formats', () => {
     const filepath1 = getFixturePath(`file1.${format}`)
     const filepath2 = getFixturePath(`file2.${format}`)
 
-    outputFormats.forEach(output => {
+    outputFormats.forEach((output) => {
       expect(genDiff(filepath1, filepath2, output)).toBe(expectedOutputs[output])
     })
   })
@@ -37,13 +37,13 @@ describe('genDiff: exceptions and default output format', () => {
   test('with unsupported data type', () => {
     expect(() => {
       genDiff(getFixturePath('expectedStylishOutput.txt'), getFixturePath('file2.json'))
-    }).toThrow("'txt' parsing is not supported")
+    }).toThrow('\'txt\' parsing is not supported')
   })
 
   test('with unsupported output format', () => {
     expect(() => {
       genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'fakeFormat')
-    }).toThrow("output to 'fakeFormat' is not supported")
+    }).toThrow('output to \'fakeFormat\' is not supported')
   })
 })
 

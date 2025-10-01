@@ -1,12 +1,12 @@
-import js from "@eslint/js"
-import globals from "globals"
-import jest from "eslint-plugin-jest"
-import { defineConfig } from "eslint/config"
+import js from '@eslint/js'
+import globals from 'globals'
+import jest from 'eslint-plugin-jest'
+import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
   js.configs.recommended,
   {
-    files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
+    files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -18,7 +18,7 @@ export default defineConfig([
     plugins: {
       jest: jest,
     },
-    files: ["**/*.test.{js,mjs,cjs}"],
+    files: ['**/*.test.{js,mjs,cjs}'],
     languageOptions: {
       globals: {
         ...globals.jest,
