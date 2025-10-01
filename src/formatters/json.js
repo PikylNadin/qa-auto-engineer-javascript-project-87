@@ -1,9 +1,9 @@
 const formatToJson = (coll) => {
   if (!Array.isArray(coll)) {
-    return undefined;
+    return undefined
   }
 
-  return JSON.stringify(coll);
-};
+  return JSON.stringify(coll)
+}
 
-export default formatToJson;
+export default formatToJson
