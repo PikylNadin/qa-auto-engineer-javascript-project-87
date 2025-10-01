@@ -15,6 +15,6 @@ const parseData = (data, dataType) => {
   } catch (err) {
     throw new Error(err)
   }
-};
+}
 
 export default parseData
