@@ -8,7 +8,7 @@ const parsers = {
 
 const parseData = (data, dataType) => {
   try {
-    if (parsers[dataType] === undefined) {
+    if (!parsers[dataType]) {
       throw new Error(`'${dataType}' parsing is not supported`)
     }
     return parsers[dataType](data)

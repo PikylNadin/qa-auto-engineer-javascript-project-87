@@ -9,7 +9,7 @@ const formatters = {
 }
 
 const formatData = (data, format) => {
-  if (formatters[format] === undefined) {
+  if (!formatters[format]) {
     throw new Error(`output to '${format}' is not supported`)
   }
   return formatters[format](data)

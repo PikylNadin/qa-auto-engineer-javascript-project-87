@@ -1,45 +1,33 @@
 import _ from 'lodash'
 
-const isEmptyObj = (someObject) => {
-  if (typeof someObject === 'object') {
-    return Object.keys(someObject).length === 0
-  }
-  return false
+const isEmpty = (data) => {
+  return typeof data === 'object' && _.isEmpty(data)
 }
 
-const compareObjects = (obj1, obj2) => {
-  if (isEmptyObj(obj1) && isEmptyObj(obj2)) {
+const compareObjects = (data1, data2) => {
+  if (isEmpty(data1) && isEmpty(data2)) {
     return []
   }
-  const allKeys = Object.keys(obj1).concat(Object.keys(obj2))
-  const sortedKeys = _.sortBy(allKeys)
-  const sortedUniqueKeys = [...new Set(sortedKeys)]
-  const differences = sortedUniqueKeys.reduce((acc, key) => {
-    const isInObj1 = Object.hasOwn(obj1, key)
-    const isInObj2 = Object.hasOwn(obj2, key)
-    const isSameValue = obj1[key] === obj2[key]
-    const isEqual = isInObj1 && isInObj2
-    if (isEqual && isSameValue) {
-      return [...acc, { key, type: 'unchanged', value: obj1[key] }]
+
+  const keys = _.sortBy(_.union(_.keys(data1), _.keys(data2)))
+
+  return keys.map((key) => {
+    if (!_.has(data1, key)) {
+      return { key, type: 'added', value: data2[key] }
     }
-    if (isEqual) {
-      return [...acc,
-        {
-          key,
-          type: 'changed',
-          value1: obj1[key],
-          value2: obj2[key],
-        }]
+    if (!_.has(data2, key)) {
+      return { key, type: 'deleted', value: data1[key] }
     }
-    if (isInObj1) {
-      return [...acc, { key, type: 'deleted', value: obj1[key] }]
+
+    const value1 = data1[key]
+    const value2 = data2[key]
+
+    if (_.isEqual(value1, value2)) {
+      return { key, type: 'unchanged', value: value1 }
     }
-    if (isInObj2) {
-      return [...acc, { key, type: 'added', value: obj2[key] }]
-    }
-    return acc
-  }, [])
-  return differences
+
+    return { key, type: 'changed', value1, value2 }
+  })
 }
 
 export default compareObjects
