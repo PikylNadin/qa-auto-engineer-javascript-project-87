@@ -16,8 +16,6 @@ const stylishHandlers = {
   },
 }
 
-const indent = (spaces) => ' '.repeat(spaces);
-
 const formatToStylish = (coll) => {
   if (!Array.isArray(coll)) {
     return 'Error: Input data must be an array.'
