@@ -1,4 +1,4 @@
-const toStylishMap = {
+const stylishHandlers = {
   unchanged({ key, value }) {
     return `    ${key}: ${value}`
   },
@@ -16,11 +16,14 @@ const toStylishMap = {
   },
 }
 
+const indent = (spaces) => ' '.repeat(spaces);
+
 const formatToStylish = (coll) => {
   if (!Array.isArray(coll)) {
-    return undefined
+    return 'Error: Input data must be an array.'
   }
-  const formattedColl = coll.flatMap(item => toStylishMap[item.type](item))
+
+  const formattedColl = coll.flatMap(item => stylishHandlers[item.type](item))
 
   return ['{', ...formattedColl, '}'].join('\n')
 }

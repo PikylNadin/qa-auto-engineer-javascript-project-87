@@ -1,4 +1,4 @@
-const toPlainMap = {
+const plainHandlers = {
   unchanged() {
     return []
   },
@@ -15,10 +15,12 @@ const toPlainMap = {
 
 const formatToPlain = (coll) => {
   if (!Array.isArray(coll)) {
-    return undefined
+    return 'Error: Input data must be an array.'
   }
-  const formattedColl = coll.flatMap(item => toPlainMap[item.type](item))
-  return formattedColl.join('\n')
+
+  return coll
+    .flatMap(item => plainHandlers[item.type](item))
+    .join('\n')
 }
 
 export default formatToPlain

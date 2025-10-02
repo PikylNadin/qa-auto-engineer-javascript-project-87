@@ -5,6 +5,10 @@ const isEmpty = (data) => {
 }
 
 const compareObjects = (data1, data2) => {
+  if (!_.isObject(data1) || !_.isObject(data2)) {
+    return []
+  }
+
   if (isEmpty(data1) && isEmpty(data2)) {
     return []
   }
